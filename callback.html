@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Authorization complete — Second Gear</title>
+<style>
+  :root { color-scheme: dark; }
+  body {
+    margin: 0; min-height: 100vh; display: grid; place-items: center;
+    background: #0d0f12; color: #e8e6e3;
+    font: 16px/1.65 ui-sans-serif, -apple-system, "Segoe UI", Roboto, sans-serif;
+    padding: 2rem;
+  }
+  main { max-width: 44rem; width: 100%; }
+  h1 { font-size: 1.4rem; letter-spacing: -0.02em; margin: 0 0 .35rem; }
+  .sub { color: #8b8f96; margin: 0 0 2rem; }
+  label { display: block; font-size: .8rem; text-transform: uppercase;
+          letter-spacing: .08em; color: #8b8f96; margin: 0 0 .5rem; }
+  code {
+    display: block; background: #15181d; border: 1px solid #23262b; border-radius: 8px;
+    padding: .9rem 1rem; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+    word-break: break-all; user-select: all; margin: 0 0 1rem;
+  }
+  button {
+    font: inherit; font-size: .9rem; padding: .55rem 1.1rem; border-radius: 7px;
+    border: 1px solid #33383f; background: #1b1f25; color: #e8e6e3; cursor: pointer;
+  }
+  button:hover { background: #22272e; }
+  ol { color: #b9bdc4; padding-left: 1.2rem; }
+  li { margin: 0 0 .5rem; }
+  .err { color: #f2a6a6; }
+  footer { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid #23262b;
+           color: #8b8f96; font-size: .85rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">Authorization complete</h1>
+  <p class="sub" id="sub">Copy the URL below and paste it into the terminal.</p>
+
+  <label for="u">This page's full URL</label>
+  <code id="u">—</code>
+  <button id="copy">Copy URL</button>
+
+  <ol>
+    <li>Copy the URL above.</li>
+    <li>Go back to the terminal and paste it where it asks for the code.</li>
+    <li>The tool exchanges it for an access token and finishes on its own.</li>
+  </ol>
+
+  <footer>
+    This page is static. It sends nothing anywhere and stores nothing — the
+    authorization code in the URL is used only by your own terminal.
+    &nbsp;·&nbsp; <a href="index.html" style="color:#e8e6e3">Home</a>
+  </footer>
+</main>
+<script>
+  const here = location.href;
+  document.getElementById('u').textContent = here;
+
+  const err = new URLSearchParams(location.search).get('error');
+  if (err) {
+    document.getElementById('title').textContent = 'Authorization failed';
+    document.getElementById('title').className = 'err';
+    document.getElementById('sub').textContent =
+      'TikTok returned: ' + err + '. Close this tab and check the terminal.';
+  }
+
+  document.getElementById('copy').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(here);
+      const b = document.getElementById('copy');
+      b.textContent = 'Copied';
+      setTimeout(() => { b.textContent = 'Copy URL'; }, 1500);
+    } catch (e) {
+      const r = document.createRange();
+      r.selectNodeContents(document.getElementById('u'));
+      getSelection().removeAllRanges();
+      getSelection().addRange(r);
+    }
+  });
+</script>
+</body>
+</html>
