@@ -71,6 +71,8 @@
   // Hand the URL straight to a CLI listening on this machine, if there is one.
   // no-cors: the response is opaque, which is fine — we only need the request
   // to arrive. A refused connection rejects, which is the fallback signal.
+  // Note: some browsers block https -> http://127.0.0.1 as mixed content, so the
+  // clipboard fallback below must always work on its own.
   const bridge = document.getElementById('bridge');
   bridge.textContent = 'Handing this to your terminal…';
   fetch('http://127.0.0.1:8722/cb?u=' + encodeURIComponent(here), { mode: 'no-cors' })
@@ -79,9 +81,15 @@
       bridge.style.color = '#8fd18f';
     })
     .catch(() => {
-      bridge.textContent = 'No terminal listening — copy the URL above and paste it.';
+      bridge.textContent = 'No terminal listening — the URL is on your clipboard.';
       bridge.style.color = '#f2a6a6';
     });
+
+  // Auto-copy on load so the paste step is a single keystroke.
+  navigator.clipboard.writeText(here).then(() => {
+    const b = document.getElementById('copy');
+    b.textContent = 'Copied — paste in terminal';
+  }).catch(() => {});
 
   document.getElementById('copy').addEventListener('click', async () => {
     try {
