@@ -42,6 +42,7 @@
   <label for="u">This page's full URL</label>
   <code id="u">—</code>
   <button id="copy">Copy URL</button>
+  <p id="bridge" class="sub" style="margin-top:1rem"></p>
 
   <ol>
     <li>Copy the URL above.</li>
@@ -66,6 +67,21 @@
     document.getElementById('sub').textContent =
       'TikTok returned: ' + err + '. Close this tab and check the terminal.';
   }
+
+  // Hand the URL straight to a CLI listening on this machine, if there is one.
+  // no-cors: the response is opaque, which is fine — we only need the request
+  // to arrive. A refused connection rejects, which is the fallback signal.
+  const bridge = document.getElementById('bridge');
+  bridge.textContent = 'Handing this to your terminal…';
+  fetch('http://127.0.0.1:8722/cb?u=' + encodeURIComponent(here), { mode: 'no-cors' })
+    .then(() => {
+      bridge.textContent = 'Handed to your terminal. You can close this tab.';
+      bridge.style.color = '#8fd18f';
+    })
+    .catch(() => {
+      bridge.textContent = 'No terminal listening — copy the URL above and paste it.';
+      bridge.style.color = '#f2a6a6';
+    });
 
   document.getElementById('copy').addEventListener('click', async () => {
     try {
