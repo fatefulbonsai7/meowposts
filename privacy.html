@@ -31,48 +31,50 @@
   <p class="eff">Effective 31 October 2026</p>
 
   <h2>1. Scope</h2>
-  <p>This policy covers Second Gear, a private single-user tool that publishes the
-  operator's own videos to the operator's own TikTok account.</p>
+  <p>This policy covers Second Gear, a publishing tool that creators use to publish
+  their own videos to their own TikTok accounts.</p>
 
   <h2>2. What we collect from visitors</h2>
   <p><strong>Nothing.</strong> This website sets no cookies, runs no analytics, embeds no
   trackers, and has no forms. No personal data is collected from anyone who visits it.</p>
+  <p>The tool itself stores only what a creator authorises it to store, listed below.</p>
 
   <h2>3. What the tool stores, and why</h2>
   <table>
     <tr><th>Data</th><th>Purpose</th><th>Where it lives</th></tr>
     <tr>
       <td>TikTok OAuth access and refresh tokens</td>
-      <td>To publish videos to the operator's own account</td>
-      <td>Locally, on the operator's own computer, in a file readable only by the operator</td>
+      <td>To publish videos to the creator's own account</td>
+      <td>On the server that runs the tool, readable only by the service operator. Never sent to a browser.</td>
     </tr>
     <tr>
       <td>Basic profile information returned by TikTok (account identifier, username)</td>
-      <td>To confirm which account is authorized</td>
-      <td>Locally, same file</td>
+      <td>To confirm which account is authorised before each upload</td>
+      <td>Same location, same protection</td>
     </tr>
     <tr>
-      <td>The operator's own videos and captions</td>
-      <td>To publish them</td>
-      <td>Locally, on the operator's own computer</td>
+      <td>The creator's own videos and captions</td>
+      <td>To publish them, and deleted once published</td>
+      <td>On the server that runs the tool; a copy stays in the creator's own queue</td>
     </tr>
   </table>
-  <p>No data about any other person is collected, because no other person uses the tool.</p>
+  <p>No data about anyone else is collected: not viewers, not followers, not other
+  creators, and no analytics of any kind.</p>
 
   <h2>4. Sharing</h2>
   <p>No data is sold, rented, or shared with any third party. The only outbound
   transmission is to TikTok's API, and only for the purpose of publishing the
-  operator's own content.</p>
+  creator's own content.</p>
 
   <h2>5. Retention and deletion</h2>
-  <p>Tokens are kept until they are revoked. The operator can revoke access at any time
-  from TikTok's settings (Settings → Security &amp; login → Manage app permissions) or by
-  deleting the local token file. Revoking access immediately ends the tool's ability to
-  post.</p>
+  <p>Tokens are kept until they are revoked. A creator can revoke access at any time from
+  TikTok's settings (Settings → Security &amp; login → Manage app permissions), which
+  immediately ends the tool's ability to post. A creator can also ask for their stored
+  data to be deleted by email, and it is removed.</p>
 
   <h2>6. Children</h2>
-  <p>The tool is not directed at children and is not offered to any user other than the
-  operator.</p>
+  <p>The tool is not directed at children and is not intended for use by anyone under
+  the age TikTok requires.</p>
 
   <h2>7. Changes</h2>
   <p>This policy may be updated; the effective date above will change accordingly.</p>
